@@ -1,0 +1,23 @@
+{
+  "name": "appointmentfinder",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PatFalt/AppointmentFinder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PatFalt/AppointmentFinder/issues"
+  },
+  "homepage": "https://github.com/PatFalt/AppointmentFinder#readme",
+  "description": "",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
