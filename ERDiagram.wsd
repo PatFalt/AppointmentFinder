@@ -6,8 +6,6 @@ Entity Event{
     eventName
     F_optionID = winOption with most votes
     description
-    list of voters + comments
-    voteTally
     dateOfClosing
 }
 
