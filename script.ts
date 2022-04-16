@@ -1,21 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
     let list =  (<HTMLFormElement>document.getElementById("existingEvents"));
     let form =  (<HTMLFormElement>document.getElementById("eventForm"));
-    let submitBttn = (<HTMLButtonElement>document.getElementById("addEvent"));
+    let addAppt = (<HTMLButtonElement>document.getElementById("addEvent"));
+    let submit = (<HTMLButtonElement>document.getElementById("submit")).addEventListener("click", () => {
+        let eventName : string = (<HTMLInputElement>document.getElementById("eventName")).toString();
+        let startDate : string = (<HTMLInputElement>document.getElementById("startDate")).toString();
+        let endDate : string = (<HTMLInputElement>document.getElementById("endDate")).toString();
+        let description : string = (<HTMLInputElement>document.getElementById("description")).toString();
+        if(eventName == "" || startDate == "" || endDate == "" || description == ""){
+            alert("Please fill out all fields");
+            console.error("incomplete form");
+            return false;
+        }
+    })
     form.style.display = "none";
-    submitBttn?.addEventListener("click", () => {
+    addAppt?.addEventListener("click", () => {
         if(form.style.display == "none"){
             form.style.display = "block";
             list.style.display = "none";
 
-            submitBttn.textContent = "Cancel";
+            addAppt.textContent = "Cancel";
         }
         else{
             form.style.display = "none";
             list.style.display = "block";
         
-            submitBttn.textContent = "Add New Appointment";
+            addAppt.textContent = "Add New Appointment";
         }
-
     })
+
 });
