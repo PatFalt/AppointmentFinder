@@ -13,15 +13,18 @@
 
     <div id="newEvent">
         <button id="addEvent">Add New Appointment</button>
-        <form enctype="multipart/form-data" id="eventForm" method="post" action="backend/leadLogic.php">
+        <form id="eventForm" method="POST" action="backend/leadLogic.php">
             <label for="eventName">Event Name:</label><br>
-            <input id="eventName" type="text" name="eventName">
+            <input type="text" name="eventName">
+            <br>
+            <label for="startDate">From:</label>
+            <input type="date" name="startDate">
             <br>
             <label for="endDate">To:</label>
-            <input id="endDate" type="date" name="endDate">
+            <input type="date" name="endDate">
             <br>
             <label for="description">Description</label><br>
-            <textarea id="description" name="description"></textarea>
+            <textarea name="description"></textarea>
             <br>
 
             <input type="submit" value="Submit">
