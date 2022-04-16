@@ -27,13 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if(form.style.display == "none"){
             form.style.display = "block";
             list.style.display = "none";
-
             addAppt.textContent = "Cancel";
         }
         else{
             form.style.display = "none";
             list.style.display = "block";
-        
             addAppt.textContent = "Add New Appointment";
         }
     })

@@ -28,9 +28,7 @@ if(isset($_POST)){
 
     $stmt->bind_param("sss", $name, $description, $closeDate);
     $stmt->execute();
-
-    
+    header("Refresh:0, url=../index.html");
 }
-
 
 ?>
