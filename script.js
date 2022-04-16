@@ -15,16 +15,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     form.style.display = "none";
+<<<<<<< Updated upstream
     addAppt === null || addAppt === void 0 ? void 0 : addAppt.addEventListener("click", () => {
         if (form.style.display == "none") {
             form.style.display = "block";
             list.style.display = "none";
             addAppt.textContent = "Cancel";
+=======
+    submitBttn === null || submitBttn === void 0 ? void 0 : submitBttn.addEventListener("click", () => {
+        if (form.style.display == "none") {
+            form.style.display = "block";
+            list.style.display = "none";
+            submitBttn.textContent = "Cancel";
+>>>>>>> Stashed changes
         }
         else {
             form.style.display = "none";
             list.style.display = "block";
+<<<<<<< Updated upstream
             addAppt.textContent = "Add New Appointment";
+=======
+            submitBttn.textContent = "Add New Appointment";
+>>>>>>> Stashed changes
         }
     });
 });
