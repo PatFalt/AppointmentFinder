@@ -9,6 +9,20 @@
     <script src="script.js"></script>
 </head>
 <body>
+    <div id="header"><h2>Appointment Finder</h2></div>
+
+    <div id="newEvent">
+        <button id="addEvent">Add New Appointment</button>
+        <form id="eventForm" method="POST" action="/backend/leadLogic.php">
+            <input type="text" name="eventName">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div id="existingEvents">
+        <table id="eventTable">
+
+        </table>
+    </div>
     
 </body>
 </html>
