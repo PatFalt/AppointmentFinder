@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let form =  (<HTMLFormElement>document.getElementById("eventForm"));
     let submitBttn = (<HTMLButtonElement>document.getElementById("addEvent"));
     form.style.display = "none";
+    list.style.display = "block";
     submitBttn?.addEventListener("click", () => {
         if(form.style.display == "none"){
             form.style.display = "block";
