@@ -12,30 +12,25 @@ function test_input($data){
 }
 
 if(isset($_POST)){
-    $inputs = array ();
-    $data = array ();
-    foreach($_POST as $x){
-        $inputs[$x] = $x;
-    }
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    foreach( $inputs as $input){
-        $data[$input] = test_input($input);
-    }
-}
-
-if(isset($_POST)){
     $eventName = $_POST["eventName"];
     $endDate = $_POST["endDate"];
-    $description = mysqli::real_escape_string($_POST["description"]);
+    //$description = mysqli::real_escape_string($_POST["description"]);
     if(true){
 
     }
-    foreach($data as $x){
-        echo $x."<br>";
-    }
 
+    $sql = "insert into event (name, description, closeDate) values (?, ?, ?)";
+    $stmt = $mysqli->prepare($sql);
+    $name = test_input($_POST["eventName"]);
+    $description = test_input($_POST["description"]);
+    $closeDate = test_input($_POST["endDate"]);
+    echo $name."<br>".$description."<br>".$closeDate."<br>";
+
+    $stmt->bind_param("sss", $name, $description, $closeDate);
+    $stmt->execute();
+
+    
 }
+
 
 ?>
