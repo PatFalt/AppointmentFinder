@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+    let list =  (<HTMLFormElement>document.getElementById("existingEvents"));
     let form =  (<HTMLFormElement>document.getElementById("eventForm"));
     let submitBttn = (<HTMLButtonElement>document.getElementById("addEvent"));
     form.style.display = "none";
-    form.style.opacity = "0";
     submitBttn?.addEventListener("click", () => {
         if(form.style.display == "none"){
             form.style.display = "block";
-            form.style.opacity = "1";
+            list.style.display = "none";
 
             submitBttn.textContent = "Cancel";
         }
         else{
             form.style.display = "none";
-            form.style.opacity = "0";
+            list.style.display = "block";
         
             submitBttn.textContent = "Add New Appointment";
         }
