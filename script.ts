@@ -11,15 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Please fill out all fields");
             console.error("incomplete form");
         } else {
-            let data = {    
-                name: eventName,
-                date: endDate,
-                description: description
-            }
             $.ajax({
                 type: "POST",
                 url: "backend/leadLogic.php",
-                data: data,
+                data: {    
+                    name: eventName,
+                    date: endDate,
+                    description: description
+                },
                 cache: false,
                 success: () => {alert("Event created succesfully");},
                 error: () => {console.error("Error");}
