@@ -1,0 +1,5 @@
+tr, th, td{
+    padding-left: 15px; 
+    padding-right: 15px;
+    border: 1px solid black;
+}

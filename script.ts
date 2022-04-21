@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let timeslots = document.getElementById("timeslots");
     let optionInput = document.getElementById("optionInput");
     addAppt.addEventListener("click", () => {
-        $("#newEvent").modal("show");      
+        let work : any = $("#newEvent");
+        work.modal("show");      
     })
     let count: number = 0;
     addSlot.addEventListener("click", () => {
@@ -72,21 +73,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 type: "POST",
                 url: "backend/leadLogic.php",
                 data: {    
-                    name: eventName,
-                    date: endDate,
-                    description: description
+                    saveName: eventName,
+                    saveDate: endDate,
+                    saveDescription: description
                 },
                 cache: false,
+
                 success: () => {
                     alert("Event created succesfully");
                     $("#eventName").val("");
                     $("#endDate").val("");
                     $("#description").val("");
                 },
+
                 error: () => {console.error("Error");}
             })
         }
     })
+    form.style.display = "none";
+    setInterval(()=>{
+        $.ajax({
+            type: "GET",
+            url: "backend/leadLogic.php",
+            cache: false,
+            success: (content)=>{
+                let JSONcontent = JSON.parse(content);
+                generateList(JSONcontent);
+            },
+            error: ()=> {console.log("Load failed");}
+            
+        })
+    }, 5000);
     /*form.style.display = "none";
     addAppt?.addEventListener("click", () => {
         if(form.style.display == "none"){
@@ -110,3 +127,23 @@ const dateInPast = function (firstDate: Date, secondDate: Date) {
   
     return false;
   };
+function generateList(content : any){
+    let table = <HTMLTableElement>document.getElementById("eventTable");
+    while(table?.firstChild){
+        table?.removeChild(table.firstChild);
+    }
+    $("#eventTable").remove();
+    $("#existingEvents").append("<table id='eventTable'></table>");
+    $("#eventTable").append("<tr><th>Event Name</th><th>Description</th><th>End Date</th></tr>")
+    let leadingTimeSlot = 0;
+    let leadingTimeSlotEntry : any;
+
+    /*$.each(content, (x, entry)=>{
+        if(leadingTimeSlot < entry["options.voteCount"]){
+            leadingTimeSlotEntry = entry["options.date"] + " " + entry["options.timeStart"] + " " + entry["options.timeEnd"] ;
+        }
+    })*/
+    $.each(content, (x, entry)=>{
+        $("#eventTable").append("<tr class='yellow'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + entry["closeDate"] + "</td></tr>");
+    })
+}
