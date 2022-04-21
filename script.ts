@@ -4,9 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let addAppt = (<HTMLButtonElement>document.getElementById("addEvent"));
     let submit = (<HTMLButtonElement>document.getElementById("submit"));
     submit.addEventListener("click", () => {
-        /*let eventName : string = (<HTMLInputElement>document.getElementById("eventName")).toString();
-        let endDate = (<HTMLInputElement>document.getElementById("endDate")).value();
-        let description : string = (<HTMLInputElement>document.getElementById("description")).toString();*/
         let eventName = $("#eventName").val();
         let endDate = $("#endDate").val();
         let description = $("#description").val();
@@ -17,27 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
             let data = {    
                 name: eventName,
                 date: endDate,
-                decription: description
+                description: description
             }
-            /*let xhr = new XMLHttpRequest();
-            xhr.open("POST", "backend/leadLogic.php", true);
-            xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8")
-            xhr.send(dataJson);
-            xhr.onload = () => {
-                if(xhr.status == 201){
-                    alert("Event created succesfully");
-                } else {
-                    console.error("Error");
-                }
-            }*/
             $.ajax({
-                type: "GET",
-                url: "ts\AppointmentFinder\backend\leadLogic.php",
-                data: {
-                    name: eventName,
-                    date: endDate,
-                    decription: description
-                },
+                type: "POST",
+                url: "backend/leadLogic.php",
+                data: data,
                 cache: false,
                 success: () => {alert("Event created succesfully");},
                 error: () => {console.error("Error");}

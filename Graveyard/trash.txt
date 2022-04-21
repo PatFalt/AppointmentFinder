@@ -1,0 +1,24 @@
+/*let xhr = new XMLHttpRequest();
+xhr.open("POST", "backend/leadLogic.php", true);
+xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8")
+xhr.send(dataJson);
+xhr.onload = () => {
+    if(xhr.status == 201){
+        alert("Event created succesfully");
+    } else {
+        console.error("Error");
+    }
+}*/
+
+/*let eventName : string = (<HTMLInputElement>document.getElementById("eventName")).toString();
+let endDate = (<HTMLInputElement>document.getElementById("endDate")).value();
+let description : string = (<HTMLInputElement>document.getElementById("description")).toString();*/
+
+/*$name = test_input($_POST["eventName"]);
+$description = test_input($_POST["description"]);
+$closeDate = $_POST["endDate"];
+$sql = "insert into event (name, description, closeDate) values ('$name', '$description', '$closeDate' )";
+$stmt = $mysqli->prepare($sql);
+$stmt->execute();
+$mysqli->close();*/
+//header("Refresh:0, url=../index.html");

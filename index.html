@@ -15,7 +15,7 @@
 
     <div id="newEvent">
         <button id="addEvent" class="btn btn-primary">Add New Appointment</button>
-        <form id="eventForm">
+        <form id="eventForm" method="POST" actio="">
             <div class="form-group">
                 <label for="eventName">Event Name:</label>
                 <input type="text" id="eventName" class="form-control" name="eventName">
@@ -26,9 +26,9 @@
             </div>
             <div class="form-group">
                 <label for="description">Description</label><br>
-                <textarea id="decription" name="description"></textarea>
+                <textarea id="description" name="description"></textarea>
             </div>
-            <input type="submit" id ="submit" class="btn btn-primary" value="Submit">
+            <input type="button" id ="submit" class="btn btn-primary" value="Submit">
         </form>
     </div>
     <div id="existingEvents">

@@ -11,26 +11,14 @@ function test_input($data){
     return $data;
 }
 
-if(isset($_GET)){
-    /*$eventName = $_GET["eventName"];
-    $endDate = $_GET["endDate"];
-    $description = $_GET["description"];
-    $sql = "insert into event (name, description, closeDate) values ('$eventname', '$description', '$endDate')";
+if(isset($_POST["name"])){
+    $eventName = $_POST["name"];
+    $endDate = $_POST["date"];
+    $description = $_POST["description"];
+    $sql = "insert into event (name, description, closeDate) values ('$eventName', '$description', '$endDate')";
     if(mysqli_query($mysqli, $sql)){
         echo "done";
-    }*/
-
-    $sql = "insert into event (name, description, closeDate) values (?, ?, ?)";
-    $stmt = $mysqli->prepare($sql);
-    $name = test_input($_GET["eventName"]);
-    $description = test_input($_GET["description"]);
-    $closeDate = $_GET["endDate"];
-    echo $name."<br>".$description."<br>".$closeDate."<br>";
-
-    $stmt->bind_param("sss", $name, $description, $closeDate);
-    $stmt->execute();
-    //header("Refresh:0, url=../index.html");
-
+    }
 }
 
 ?>
