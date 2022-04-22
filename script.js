@@ -65,6 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
     submit.addEventListener("click", () => {
         let eventName = $("#eventName").val();
         let endDate = $("#endDate").val();
+        let setDate = new Date(endDate);
+        let now = new Date();
+        now.setHours(0, 0, 0, 0);
+        if (dateInPast(setDate, now)) {
+            alert("Do you have a big time machine?");
+            return false;
+        }
         let description = $("#description").val();
         if (eventName == "" || endDate == "" || description == "") {
             alert("Please fill out all fields");
@@ -108,20 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             error: () => { console.log("Load failed"); }
         });
-    }, 25000);
-    /*form.style.display = "none";
-    addAppt?.addEventListener("click", () => {
-        if(form.style.display == "none"){
-            form.style.display = "block";
-            list.style.display = "none";
-            addAppt.textContent = "Cancel";
-        }
-        else{
-            form.style.display = "none";
-            list.style.display = "block";
-            addAppt.textContent = "Add New Appointment";
-        }
-    })*/
+    }, 2500);
 });
 const dateInPast = (firstDate, secondDate) => {
     if (firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0)) {
@@ -139,11 +133,6 @@ function generateList(content) {
     $("#eventTable").append("<tr><th>Event Name</th><th>Description</th><th>End Date</th></tr>");
     let leadingTimeSlot = 0;
     let leadingTimeSlotEntry;
-    /*$.each(content, (x, entry)=>{
-        if(leadingTimeSlot < entry["options.voteCount"]){
-            leadingTimeSlotEntry = entry["options.date"] + " " + entry["options.timeStart"] + " " + entry["options.timeEnd"] ;
-        }
-    })*/
     let now = new Date();
     now.setHours(0, 0, 0, 0);
     let counter = 0;

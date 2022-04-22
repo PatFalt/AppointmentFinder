@@ -22,3 +22,17 @@ $stmt = $mysqli->prepare($sql);
 $stmt->execute();
 $mysqli->close();*/
 //header("Refresh:0, url=../index.html");
+
+/*form.style.display = "none";
+addAppt?.addEventListener("click", () => {
+    if(form.style.display == "none"){
+        form.style.display = "block";
+        list.style.display = "none";
+        addAppt.textContent = "Cancel";
+    }
+    else{
+        form.style.display = "none";
+        list.style.display = "block";
+        addAppt.textContent = "Add New Appointment";
+    }
+})*/
