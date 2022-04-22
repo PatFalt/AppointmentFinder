@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let work : any = $("#newEvent");
         work.modal("show");      
     })
-    let count: number = 0;
+    let count : number = 0;
     addSlot.addEventListener("click", () => {
         $("#optionInput").empty();
         let today = new Date(Date.now());
@@ -37,8 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
         timeStartL.innerText = "From";
         timeEndL.innerText = "To";
         optionbtn.innerText = "Add";
-        console.log(dateInput.getAttribute("id"));
-        //console.log(dateInput.getAttribute("min"));
         optionInput?.appendChild(dateInputL);
         optionInput?.appendChild(dateInput);
         optionInput?.appendChild(timeStartL);
@@ -46,14 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
         optionInput?.appendChild(timeEndL);
         optionInput?.appendChild(timeEnd);
         optionInput?.appendChild(optionbtn);
-        optionbtn.addEventListener("click", () => {
-            if(dateInput.value != "" && timeStart.value != "" && timeEnd.value != ""){
-                let setDate = new Date(dateInput.value);
+        optionbtn?.addEventListener("click", () => {
+            if(dateInput?.value != "" && timeStart?.value != "" && timeEnd?.value != ""){
+                let setDate = new Date(dateInput?.value);
                 if(dateInPast(setDate, today)){
                     alert("Do you have a time machine?");
                     return false;
                 } else {
-                    $("#slotList").append("<li>"+ dateInput.value + ": from " + timeStart.value + " to " + timeEnd.value + "</li>")
+                    $("#slotList").append("<li class='list-group'>"+ dateInput.value + ": from " + timeStart.value + " to " + timeEnd.value + "</li>")
                 }
             } else {
                 alert("Please fill out all fields");
@@ -90,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         }
     })
-    form.style.display = "none";
+    //form.style.display = "none"; What is this for?
     setInterval(()=>{
         $.ajax({
             type: "GET",
@@ -120,13 +118,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-const dateInPast = function (firstDate: Date, secondDate: Date) {
+const dateInPast = (firstDate: Date, secondDate: Date) => {
     if (firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0)) {
       return true;
     }
   
     return false;
   };
+
 function generateList(content : any){
     let table = <HTMLTableElement>document.getElementById("eventTable");
     while(table?.firstChild){

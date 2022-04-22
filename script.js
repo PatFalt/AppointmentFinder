@@ -38,8 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
         timeStartL.innerText = "From";
         timeEndL.innerText = "To";
         optionbtn.innerText = "Add";
-        console.log(dateInput.getAttribute("id"));
-        //console.log(dateInput.getAttribute("min"));
         optionInput === null || optionInput === void 0 ? void 0 : optionInput.appendChild(dateInputL);
         optionInput === null || optionInput === void 0 ? void 0 : optionInput.appendChild(dateInput);
         optionInput === null || optionInput === void 0 ? void 0 : optionInput.appendChild(timeStartL);
@@ -47,15 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
         optionInput === null || optionInput === void 0 ? void 0 : optionInput.appendChild(timeEndL);
         optionInput === null || optionInput === void 0 ? void 0 : optionInput.appendChild(timeEnd);
         optionInput === null || optionInput === void 0 ? void 0 : optionInput.appendChild(optionbtn);
-        optionbtn.addEventListener("click", () => {
-            if (dateInput.value != "" && timeStart.value != "" && timeEnd.value != "") {
-                let setDate = new Date(dateInput.value);
+        optionbtn === null || optionbtn === void 0 ? void 0 : optionbtn.addEventListener("click", () => {
+            if ((dateInput === null || dateInput === void 0 ? void 0 : dateInput.value) != "" && (timeStart === null || timeStart === void 0 ? void 0 : timeStart.value) != "" && (timeEnd === null || timeEnd === void 0 ? void 0 : timeEnd.value) != "") {
+                let setDate = new Date(dateInput === null || dateInput === void 0 ? void 0 : dateInput.value);
                 if (dateInPast(setDate, today)) {
                     alert("Do you have a time machine?");
                     return false;
                 }
                 else {
-                    $("#slotList").append("<li>" + dateInput.value + ": from " + timeStart.value + " to " + timeEnd.value + "</li>");
+                    $("#slotList").append("<li class='list-group'>" + dateInput.value + ": from " + timeStart.value + " to " + timeEnd.value + "</li>");
                 }
             }
             else {
@@ -92,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
-    form.style.display = "none";
+    //form.style.display = "none"; What is this for?
     setInterval(() => {
         $.ajax({
             type: "GET",
@@ -119,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })*/
 });
-const dateInPast = function (firstDate, secondDate) {
+const dateInPast = (firstDate, secondDate) => {
     if (firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0)) {
         return true;
     }
