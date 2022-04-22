@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             error: ()=> {console.log("Load failed");}
             
         })
-    }, 10000);
+    }, 5000);
     /*form.style.display = "none";
     addAppt?.addEventListener("click", () => {
         if(form.style.display == "none"){
@@ -148,7 +148,28 @@ function generateList(content : any){
             leadingTimeSlotEntry = entry["options.date"] + " " + entry["options.timeStart"] + " " + entry["options.timeEnd"] ;
         }
     })*/
+    let now = new Date();
+    now.setHours(0,0,0,0);
+    let counter = 0;
     $.each(content, (x, entry)=>{
-        $("#eventTable").append("<tr class='yellow'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + entry["closeDate"] + "</td></tr>");
+        let date = entry["closeDate"];
+        if(now.toISOString() <= date){
+            if(counter % 2 == 0)
+            $("#eventTable").append("<tr id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
+            + "</td><td class='noBorder'><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"'></td></tr>");
+            else
+            $("#eventTable").append("<tr class='grey' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
+            + "</td><td class='noBorder'><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"'></td></tr>");
+        }
+        else{
+            if(counter % 2 == 0)
+            $("#eventTable").append("<tr id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
+            + "</td><td class='noBorder'><input type='button' class='btn btn-primary' value='Show Result' id='"+ entry["eventID"] +"; done'></tr>");
+            else
+            $("#eventTable").append("<tr class='grey' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
+            + "</td><td class='noBorder'><input type='button' class='btn btn-primary' value='Show Result' id='"+ entry["eventID"] +"; done'></tr>");
+        }
+        counter++;
+        
     })
 }

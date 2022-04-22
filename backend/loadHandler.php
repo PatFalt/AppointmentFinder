@@ -1,8 +1,9 @@
 <?php
-    /*$sql = "select event.name, event.description, event.open, event.closeDate, options.date, options.timeStart, options.timeEnd, options.voteCount
-            from event join options 
-            on event.eventID = options.f_eventID";*/
-    $sql = "select * from event";
+    /*$sql = "select eventID, name, description, open, closeDate, date, timeStart, timeEnd, voteCount
+            from event left join options 
+            on event.eventID = options.f_eventID
+            where (select max(voteCount) from options)";*/
+    $sql = "select * from event order by closeDate asc";
     $result = mysqli_query($mysqli, $sql);
     $table = [];
     if(mysqli_num_rows($result) > 0){
