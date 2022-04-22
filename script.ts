@@ -95,13 +95,19 @@ document.addEventListener("DOMContentLoaded", () => {
             url: "backend/leadLogic.php",
             cache: false,
             success: (content)=>{
-                let JSONcontent = JSON.parse(content);
-                generateList(JSONcontent);
+                if(content){
+                    let JSONcontent = JSON.parse(content);
+                    console.log("Found Events in DB");
+                    generateList(JSONcontent);
+                }
+                else{
+                    console.log("No Events in DB");
+                }
             },
             error: ()=> {console.log("Load failed");}
             
         })
-    }, 5000);
+    }, 10000);
     /*form.style.display = "none";
     addAppt?.addEventListener("click", () => {
         if(form.style.display == "none"){
