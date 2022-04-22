@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             error: ()=> {console.log("Load failed");}
             
         })
-    }, 5000);
+    }, 25000);
     /*form.style.display = "none";
     addAppt?.addEventListener("click", () => {
         if(form.style.display == "none"){
@@ -156,18 +156,18 @@ function generateList(content : any){
         if(now.toISOString() <= date){
             if(counter % 2 == 0)
             $("#eventTable").append("<tr id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td class='noBorder'><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"'></td></tr>");
             else
             $("#eventTable").append("<tr class='grey' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td class='noBorder'><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"'></td></tr>");
         }
         else{
             if(counter % 2 == 0)
-            $("#eventTable").append("<tr id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td class='noBorder'><input type='button' class='btn btn-primary' value='Show Result' id='"+ entry["eventID"] +"; done'></tr>");
+            $("#eventTable").append("<tr id='"+ entry["eventID"] +"; done'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
+            + "</td><td><input type='button' class='btn btn-primary' value='Show Result' id='"+ entry["eventID"] +"; done'></tr>");
             else
-            $("#eventTable").append("<tr class='grey' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td class='noBorder'><input type='button' class='btn btn-primary' value='Show Result' id='"+ entry["eventID"] +"; done'></tr>");
+            $("#eventTable").append("<tr class='grey' id='"+ entry["eventID"] +"; done'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
+            + "</td><td><input type='button' class='btn btn-primary' value='Show Result' id='"+ entry["eventID"] +"; done'></tr>");
         }
         counter++;
         
