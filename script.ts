@@ -47,11 +47,20 @@ document.addEventListener("DOMContentLoaded", () => {
         optionbtn?.addEventListener("click", () => {
             if(dateInput?.value != "" && timeStart?.value != "" && timeEnd?.value != ""){
                 let setDate = new Date(dateInput?.value);
+                let newOption : any = {"date": dateInput.value, "timeStart": timeStart.value, "timeEnd": timeEnd.value}
                 if(dateInPast(setDate, today)){
                     alert("Do you have a time machine?");
                     return false;
                 } else {
-                    $("#slotList").append("<li class='list-group'>"+ dateInput.value + ": from " + timeStart.value + " to " + timeEnd.value + "</li>")
+                    for(let i = 0; i < options.length; i++){
+                        if(options[i].parseInt() == newOption.parseInt()){
+                            alert("This option already exists");
+                            return false;
+                        }
+                    }
+                    $("#slotList").append("<li class='list-group'>"+ dateInput.value + ": from " + timeStart.value + " to " + timeEnd.value + "</li>");
+                    console.log(options.push(newOption));
+                    console.log(options);
                 }
             } else {
                 alert("Please fill out all fields");
@@ -95,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         }
     })
-    //form.style.display = "none"; What is this for?
     setInterval(()=>{
         $.ajax({
             type: "GET",
@@ -118,13 +126,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+let options : any = [];
+
 const dateInPast = (firstDate: Date, secondDate: Date) => {
     if (firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0)) {
       return true;
     }
-  
     return false;
-  };
+};
 
 function generateList(content : any){
     let table = <HTMLTableElement>document.getElementById("eventTable");
@@ -159,6 +168,5 @@ function generateList(content : any){
             + "</td><td><input type='button' class='btn btn-primary' value='Show Result' id='"+ entry["eventID"] +"; done'></tr>");
         }
         counter++;
-        
     })
 }

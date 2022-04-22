@@ -48,12 +48,21 @@ document.addEventListener("DOMContentLoaded", () => {
         optionbtn === null || optionbtn === void 0 ? void 0 : optionbtn.addEventListener("click", () => {
             if ((dateInput === null || dateInput === void 0 ? void 0 : dateInput.value) != "" && (timeStart === null || timeStart === void 0 ? void 0 : timeStart.value) != "" && (timeEnd === null || timeEnd === void 0 ? void 0 : timeEnd.value) != "") {
                 let setDate = new Date(dateInput === null || dateInput === void 0 ? void 0 : dateInput.value);
+                let newOption = { "date": dateInput.value, "timeStart": timeStart.value, "timeEnd": timeEnd.value };
                 if (dateInPast(setDate, today)) {
                     alert("Do you have a time machine?");
                     return false;
                 }
                 else {
+                    for (let i = 0; i < options.length; i++) {
+                        if (options[i].parseInt() == newOption.parseInt()) {
+                            alert("This option already exists");
+                            return false;
+                        }
+                    }
                     $("#slotList").append("<li class='list-group'>" + dateInput.value + ": from " + timeStart.value + " to " + timeEnd.value + "</li>");
+                    console.log(options.push(newOption));
+                    console.log(options);
                 }
             }
             else {
@@ -97,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
-    //form.style.display = "none"; What is this for?
     setInterval(() => {
         $.ajax({
             type: "GET",
@@ -117,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, 2500);
 });
+let options = [];
 const dateInPast = (firstDate, secondDate) => {
     if (firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0)) {
         return true;
