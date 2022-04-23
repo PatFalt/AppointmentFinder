@@ -1,4 +1,5 @@
 <?php
+    include("dbaccess.php");
     /*$sql = "select eventID, name, description, open, closeDate, date, timeStart, timeEnd, voteCount
             from event left join options 
             on event.eventID = options.f_eventID

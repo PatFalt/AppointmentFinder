@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let work : any = $("#newEvent");
         work.modal("show");      
     })
+    
     let count : number = 0;
     addSlot.addEventListener("click", () => {
         $("#optionInput").empty();
@@ -44,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         optionInput?.appendChild(timeEndL);
         optionInput?.appendChild(timeEnd);
         optionInput?.appendChild(optionbtn);
+
         optionbtn?.addEventListener("click", () => {
             if(dateInput?.value != "" && timeStart?.value != "" && timeEnd?.value != ""){
                 let setDate = new Date(dateInput?.value);
@@ -68,12 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
             count++;
         }) 
     })
+
     submit.addEventListener("click", () => {
         let eventName = $("#eventName").val();
         let endDate : any = $("#endDate").val();
         let setDate = new Date(endDate);
         let now = new Date();
-        now.setHours(0,0,0,0);
         if(dateInPast(setDate, now)){
             alert("Do you have a big time machine?");
             return false;
@@ -104,10 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         }
     })
+
     setInterval(()=>{
         $.ajax({
             type: "GET",
-            url: "backend/leadLogic.php",
+            url: "backend/loadHandler.php",
             cache: false,
             success: (content)=>{
                 if(content){
@@ -124,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }, 2500);
 
+    
 });
 
 let options : any = [];
@@ -153,11 +157,11 @@ function generateList(content : any){
         let date = entry["closeDate"];
         if(now.toISOString() <= date){
             if(counter % 2 == 0)
-            $("#eventTable").append("<tr id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"'></td></tr>");
+            $("#eventTable").append("<tr id='"+ entry["eventID"] +"; running'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
+            + "</td><td><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"; running'></td></tr>");
             else
-            $("#eventTable").append("<tr class='grey' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"'></td></tr>");
+            $("#eventTable").append("<tr class='grey' id='"+ entry["eventID"] +"; running'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
+            + "</td><td><input type='button' class='btn btn-primary' value='View' id='"+ entry["eventID"] +"; running'></td></tr>");
         }
         else{
             if(counter % 2 == 0)
