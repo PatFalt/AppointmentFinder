@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     return false;
                 } else {
                     for(let i = 0; i < options.length; i++){
-                        if(options[i].parseInt() == newOption.parseInt()){
+                        if(parseInt(options[i]) == parseInt(newOption)){
                             alert("This option already exists");
                             return false;
                         }
@@ -94,14 +94,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     saveDescription: description
                 },
                 cache: false,
-
                 success: () => {
+                    for(let i = 0; i < options.length; i++){
+                        $.ajax({
+                                type: "POST",
+                                url: "backend/leadLogic.php",
+                                data: options[i], 
+                                cache: false,
+                                success: () => {console.log("option logged");},
+                                error: () => {console.error("Error option");}
+                            })
+                    }
                     alert("Event created succesfully");
                     $("#eventName").val("");
                     $("#endDate").val("");
                     $("#description").val("");
+                    let work : any = $("#newEvent");
+                    work.modal("hide"); 
                 },
-
                 error: () => {console.error("Error");}
             })
         }
