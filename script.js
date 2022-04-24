@@ -97,10 +97,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 cache: false,
                 success: () => {
                     for (let i = 0; i < options.length; i++) {
+                        let data = JSON.stringify(options[i]);
+                        data = JSON.parse(data);
+                        console.log(data);
                         $.ajax({
                             type: "POST",
                             url: "backend/leadLogic.php",
-                            data: options[i],
+                            data: {
+                                saveName: eventName,
+                                saveOptionDate: data.date,
+                                saveOptionTimeStart: data.timeStart,
+                                saveOptionTimeEnd: data.timeEnd
+                            },
                             cache: false,
                             success: () => { console.log("option logged"); },
                             error: () => { console.error("Error option"); }

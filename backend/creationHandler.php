@@ -9,13 +9,14 @@ if(isset($_POST["saveName"])){
     }
 }
 
-if(isset($_POST["timeStart"])){
+if(isset($_POST["saveOptionTimeStart"])){
+    $eventName = $_POST["saveName"];
     $sql = "select eventID from event where name is ".$eventName;
     mysqli_query($mysqli, $sql);
     $mysqli->bind_result($id);
-    $date = $_POST["date"];
-    $timeStart = $_POST["timeStart"];
-    $timeEnd = $_POST["timeEnd"];
+    $date = $_POST["saveOptionDate"];
+    $timeStart = $_POST["saveOptionTimeStart"];
+    $timeEnd = $_POST["saveOptionTimeEnd"];
     $sql = "insert into options (f_eventID, date, timeStart, timeEnd) values ('$id', '$date', '$timeStart', '$timeEnd')";
     if(mysqli_query($mysqli, $sql)){
         echo "done";
