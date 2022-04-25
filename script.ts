@@ -85,42 +85,54 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Please fill out all fields");
             console.error("incomplete form");
         } else {
-            $.ajax({
-                type: "POST",
-                url: "backend/leadLogic.php",
-                data: {    
-                    saveName: eventName,
-                    saveDate: endDate,
-                    saveDescription: description
-                },
-                cache: false,
-                success: () => {
-                    for(let i = 0; i < options.length; i++){
-                        let data : any = JSON.stringify(options[i]);
-                        data = JSON.parse(data);
-                        console.log(data);
-                        $.ajax({
-                                type: "POST",
-                                url: "backend/leadLogic.php",
-                                data: {
-                                    saveName: eventName,
-                                    saveOptionDate: data.date,
-                                    saveOptionTimeStart: data.timeStart,
-                                    saveOptionTimeEnd: data.timeEnd
-                                },
-                                cache: false,
-                                success: () => {console.log("option logged");},
-                                error: () => {console.error("Error option");}
-                            })
+            let ajaxPromise = new Promise((resolve, reject)=>{
+                $.ajax({
+                    type: "POST",
+                    url: "backend/leadLogic.php",
+                    data: {    
+                        saveName: eventName,
+                        saveDate: endDate,
+                        saveDescription: description
+                    },
+                    cache: false,
+                    success: () => {
+                        alert("Event created succesfully");
+                        $("#eventName").val("");
+                        $("#endDate").val("");
+                        $("#description").val("");
+                        let work : any = $("#newEvent");
+                        work.modal("hide");
+                        resolve("promise worked"); 
+                    },
+                    error: () => {
+                        console.error("Error");
+                        reject("promise rejected")
                     }
-                    alert("Event created succesfully");
-                    $("#eventName").val("");
-                    $("#endDate").val("");
-                    $("#description").val("");
-                    let work : any = $("#newEvent");
-                    work.modal("hide"); 
-                },
-                error: () => {console.error("Error");}
+                })
+            })
+            ajaxPromise.then((val)=>{
+                for(let i = 0; i < options.length; i++){
+                    let data : any = JSON.stringify(options[i]);
+                    data = JSON.parse(data);
+                    console.log(eventName);
+                    console.log(data);
+                    console.log(val);
+                    setTimeout(()=>{
+                        $.ajax({
+                            type: "POST",
+                            url: "backend/leadLogic.php",
+                            data: {
+                                saveOptionName: eventName,
+                                saveOptionDate: data.date,
+                                saveOptionTimeStart: data.timeStart,
+                                saveOptionTimeEnd: data.timeEnd
+                            },
+                            cache: false,
+                            success: () => {console.log("option logged");},
+                            error: () => {console.error("Error option");}
+                        })
+                    }, 300)
+                }
             })
         }
     })
@@ -143,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
             error: ()=> {console.log("Load failed");}
             
         })
-    }, 2500);
+    }, 10000);
 
     
 });

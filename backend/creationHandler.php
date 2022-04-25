@@ -7,19 +7,22 @@ if(isset($_POST["saveName"])){
     if(mysqli_query($mysqli, $sql)){
         echo "done";
     }
+    $mysqli->close();
 }
 
 if(isset($_POST["saveOptionTimeStart"])){
-    $eventName = $_POST["saveName"];
-    $sql = "select eventID from event where name is ".$eventName;
-    mysqli_query($mysqli, $sql);
+    $eventName = $_POST["saveOptionName"];
+    $sql = $mysqli->prepare("select eventID from event where name = ?");
+    $sql->bind_param('s', $eventName);
+    $sql->execute();
     $mysqli->bind_result($id);
     $date = $_POST["saveOptionDate"];
     $timeStart = $_POST["saveOptionTimeStart"];
     $timeEnd = $_POST["saveOptionTimeEnd"];
-    $sql = "insert into options (f_eventID, date, timeStart, timeEnd) values ('$id', '$date', '$timeStart', '$timeEnd')";
-    if(mysqli_query($mysqli, $sql)){
+    $sql2 = "insert into options (f_eventID, date, timeStart, timeEnd) values ('$id', '$date', '$timeStart', '$timeEnd')";
+    if(mysqli_query($mysqli, $sql2)){
         echo "done";
     }
+    $mysqli->close();
 }
 ?>

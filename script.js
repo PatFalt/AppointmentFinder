@@ -86,25 +86,44 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("incomplete form");
         }
         else {
-            $.ajax({
-                type: "POST",
-                url: "backend/leadLogic.php",
-                data: {
-                    saveName: eventName,
-                    saveDate: endDate,
-                    saveDescription: description
-                },
-                cache: false,
-                success: () => {
-                    for (let i = 0; i < options.length; i++) {
-                        let data = JSON.stringify(options[i]);
-                        data = JSON.parse(data);
-                        console.log(data);
+            let ajaxPromise = new Promise((resolve, reject) => {
+                $.ajax({
+                    type: "POST",
+                    url: "backend/leadLogic.php",
+                    data: {
+                        saveName: eventName,
+                        saveDate: endDate,
+                        saveDescription: description
+                    },
+                    cache: false,
+                    success: () => {
+                        alert("Event created succesfully");
+                        $("#eventName").val("");
+                        $("#endDate").val("");
+                        $("#description").val("");
+                        let work = $("#newEvent");
+                        work.modal("hide");
+                        resolve("promise worked");
+                    },
+                    error: () => {
+                        console.error("Error");
+                        reject("promise rejected");
+                    }
+                });
+            });
+            ajaxPromise.then((val) => {
+                for (let i = 0; i < options.length; i++) {
+                    let data = JSON.stringify(options[i]);
+                    data = JSON.parse(data);
+                    console.log(eventName);
+                    console.log(data);
+                    console.log(val);
+                    setTimeout(() => {
                         $.ajax({
                             type: "POST",
                             url: "backend/leadLogic.php",
                             data: {
-                                saveName: eventName,
+                                saveOptionName: eventName,
                                 saveOptionDate: data.date,
                                 saveOptionTimeStart: data.timeStart,
                                 saveOptionTimeEnd: data.timeEnd
@@ -113,15 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
                             success: () => { console.log("option logged"); },
                             error: () => { console.error("Error option"); }
                         });
-                    }
-                    alert("Event created succesfully");
-                    $("#eventName").val("");
-                    $("#endDate").val("");
-                    $("#description").val("");
-                    let work = $("#newEvent");
-                    work.modal("hide");
-                },
-                error: () => { console.error("Error"); }
+                    }, 300);
+                }
             });
         }
     });
@@ -142,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             error: () => { console.log("Load failed"); }
         });
-    }, 2500);
+    }, 10000);
 });
 let options = [];
 const dateInPast = (firstDate, secondDate) => {
