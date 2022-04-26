@@ -117,21 +117,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     data = JSON.parse(data);
                     console.log(data);
                     console.log(val);
-                    setTimeout(() => {
-                        $.ajax({
-                            type: "POST",
-                            url: "backend/leadLogic.php",
-                            data: {
-                                saveOptionDate: data.date,
-                                saveOptionTimeStart: data.timeStart,
-                                saveOptionTimeEnd: data.timeEnd
-                            },
-                            cache: false,
-                            async: false,
-                            success: () => { console.log("option logged"); },
-                            error: () => { console.error("Error option"); }
-                        });
-                    }, 10000);
+                    $.ajax({
+                        type: "POST",
+                        url: "backend/leadLogic.php",
+                        data: {
+                            saveOptionDate: data.date,
+                            saveOptionTimeStart: data.timeStart,
+                            saveOptionTimeEnd: data.timeEnd
+                        },
+                        cache: false,
+                        async: false,
+                        success: () => { console.log("option logged"); },
+                        error: () => { console.error("Error option"); }
+                    });
                 }
             });
         }
@@ -153,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             error: () => { console.log("Load failed"); }
         });
-    }, 10000);
+    }, 5000);
 });
 let options = [];
 const dateInPast = (firstDate, secondDate) => {

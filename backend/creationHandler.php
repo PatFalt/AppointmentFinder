@@ -12,17 +12,27 @@ if(isset($_POST["saveName"])){
 }
 
 if(isset($_POST["saveOptionTimeStart"])){
-    require("dbaccess.php");
+    require_once("dbaccess.php");
     //$eventName = $_POST["saveOptionName"];
-    $sql = $mysqli->prepare("select max(eventID) from event");
+    //$sql = "select max(eventID) from event";
+    //$result = $mysqli->query($sql);
+
     //$sql->bind_param('s', $eventName);
-    $sql->execute();
-    $sql->bind_result($id);  
-    $intid = intval($id);
+    //$sql->execute();
+    //$sql->bind_result($id);  
+    //$id = (int)$id;
+    
+    //hile($idArray = $result->fetch_assoc()) {
+    //    $id = $idArray["eventID"];
+    //}
     $date = $_POST["saveOptionDate"];
     $timeStart = $_POST["saveOptionTimeStart"];
     $timeEnd = $_POST["saveOptionTimeEnd"];
-    $sql = "insert into options (f_eventID, date, timeStart, timeEnd) values ('$intid', '$date', '$timeStart', '$timeEnd')";
+    $sql = "insert into options (f_eventID) SELECT eventID from event where eventID = (select max(eventID) from event)";
+    if(mysqli_query($mysqli, $sql)){
+        echo "done";
+    }
+    $sql = "update options set date = '$date', timeStart = '$timeStart', timeEnd = '$timeEnd' where optionID = (select max(optionID) from options)";
     if(mysqli_query($mysqli, $sql)){
         echo "done";
     }

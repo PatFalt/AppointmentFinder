@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     data = JSON.parse(data);
                     console.log(data);
                     console.log(val);
-                    setTimeout(()=>{
                         $.ajax({
                             type: "POST",
                             url: "backend/leadLogic.php",
@@ -130,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             success: () => {console.log("option logged");},
                             error: () => {console.error("Error option");}
                         })
-                    }, 10000);
                 }
             })
         }
@@ -154,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
             error: ()=> {console.log("Load failed");}
             
         })
-    }, 10000);
+    }, 5000);
 
     
 });
