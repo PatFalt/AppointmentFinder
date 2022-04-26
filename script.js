@@ -113,10 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             ajaxPromise.then((val) => {
                 for (let i = 0; i < options.length; i++) {
-                    //let data : any = JSON.stringify(options[i]);
-                    let data = JSON.parse(options[i]);
-                    //data = JSON.parse(data);
-                    //console.log(eventName);
+                    let data = JSON.stringify(options[i]);
+                    data = JSON.parse(data);
                     console.log(data);
                     console.log(val);
                     setTimeout(() => {
@@ -124,12 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             type: "POST",
                             url: "backend/leadLogic.php",
                             data: {
-                                //saveOptionName: eventName,
                                 saveOptionDate: data.date,
                                 saveOptionTimeStart: data.timeStart,
                                 saveOptionTimeEnd: data.timeEnd
                             },
                             cache: false,
+                            async: false,
                             success: () => { console.log("option logged"); },
                             error: () => { console.error("Error option"); }
                         });
