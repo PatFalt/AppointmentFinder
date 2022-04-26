@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Please fill out all fields");
             console.error("incomplete form");
         } else {
-            let ajaxPromise = new Promise((resolve, reject)=>{
+            let ajaxPromise = new Promise((resolve, reject) => {
                 $.ajax({
                     type: "POST",
                     url: "backend/leadLogic.php",
@@ -112,9 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             ajaxPromise.then((val)=>{
                 for(let i = 0; i < options.length; i++){
-                    let data : any = JSON.stringify(options[i]);
-                    data = JSON.parse(data);
-                    console.log(eventName);
+                    //let data : any = JSON.stringify(options[i]);
+                    let data : any = JSON.parse(options[i]);
+                    //data = JSON.parse(data);
+                    //console.log(eventName);
                     console.log(data);
                     console.log(val);
                     setTimeout(()=>{
@@ -122,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             type: "POST",
                             url: "backend/leadLogic.php",
                             data: {
-                                saveOptionName: eventName,
+                                //saveOptionName: eventName,
                                 saveOptionDate: data.date,
                                 saveOptionTimeStart: data.timeStart,
                                 saveOptionTimeEnd: data.timeEnd
@@ -131,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             success: () => {console.log("option logged");},
                             error: () => {console.error("Error option");}
                         })
-                    }, 300)
+                    }, 10000);
                 }
             })
         }
