@@ -47,8 +47,4 @@
         }
         $mysqli->close();
     }
-    //alle options
-    //sql = "select date, timeStart, timeEnd from options where f_eventID = ?" 
-    //winning option
-    //sql = "select date, timeStart, timeEnd from options where f_eventID = ? and voteCount = (select max(voteCount) from options where f_eventID = ?)"
 ?>

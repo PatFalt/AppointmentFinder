@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
             else {
                 alert("Please fill out all fields");
             }
-            //count++;
         });
     });
     submit.addEventListener("click", () => {
@@ -153,6 +152,7 @@ function showWinner(eventID) {
         async: false,
         data: {
             resultCheck: 1,
+            viewCheck: 0,
             eventID: eventID,
         },
         success: (content) => {
@@ -178,6 +178,7 @@ function showView(eventID) {
         async: false,
         data: {
             viewCheck: 1,
+            resultCheck: 0,
             eventID: eventID,
         },
         success: (content) => {
