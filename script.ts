@@ -130,16 +130,16 @@ function deleteMe(eventID :any){
             deleteMe: 1,
             eventID: eventID,
         },
-        success: ()=>{console.log("Delete params passed");},
-        error: ()=> {console.log("Delete params failed");}
+        success: () => {console.log("Delete params passed");},
+        error: () => {console.log("Delete params failed");}
     })
     refreshList();
 }
 
-function showDetail(view : boolean, eventID :any) { //Neues Event erstellen
+function showDetail(view : boolean, eventID : any, name : string) { //Neues Event erstellen
+    $("#apptTitle").text(name);
     let detailModal : any = $("#detailedView");
     detailModal.modal("show");      
-
     if(view == false){
         showWinner(eventID);
         console.log("view false");
@@ -161,22 +161,22 @@ function showWinner(eventID : any){
             resultCheck: 1,
             eventID: eventID,
         },
-        success: (content)=>{
+        success: (content) => {
             if(content){
                 let JSONcontent = JSON.parse(content);
-                $.each(JSONcontent, (x, entry)=>{
-                    alert(entry["date"]);
-                })
+                $("#resultView").text(JSONcontent.date + " : " + JSONcontent.timeStart + " - " + JSONcontent.timeEnd);
+                console.log(JSONcontent.date);
             }
             else{
                 console.log("No Options in DB");
             }
         },
-        error: ()=> {console.log("Load failed");}
+        error: () => {console.log("Load failed");}
     })
 };
 
 function showView(eventID : any){
+    $("#optionView").empty();
     $.ajax({
         type: "POST",
         url: "backend/leadLogic.php",
@@ -191,7 +191,7 @@ function showView(eventID : any){
                 let JSONcontent = JSON.parse(content);
                 console.log("Found Options in DB");
                 $.each(JSONcontent, (x, entry)=>{
-                    alert(entry["date"]);
+                    $("#optionView").append("<li class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] + "</li>");
                 })
             }
             else{
@@ -254,22 +254,22 @@ function generateList(content : any){
         if(now.toISOString() <= date){
             if(counter % 2 == 0)
             $("#eventTable").append("<tr name='running' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail(true, this.id)' for='running' value='View' id='"+ entry["eventID"] +"'></td>"+
-            "<td><input type='button' class='btn btn-primary' onclick='deleteMe(this.id)' value='Delete Me' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary running'  name='"+entry["name"] +"' onclick='showDetail(true, this.id, this.name)' for='running' value='View' id='"+ entry["eventID"] +"'></td>"+
+            "<td><input type='button' class='btn btn-primary'  value='Delete Me' id='"+ entry["eventID"] +"'></td></tr>");
             else
             $("#eventTable").append("<tr name='running' class='grey' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail(true, this.id)' for='running' value='View' id='"+ entry["eventID"] +"'></td>"+
-            "<td><input type='button' class='btn btn-primary' onclick='deleteMe(this.id)' value='Delete Me' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary running'  name='"+entry["name"] +"' onclick='showDetail(true, this.id, this.name)' for='running' value='View' id='"+ entry["eventID"] +"'></td>"+
+            "<td><input type='button' class='btn btn-primary' value='Delete Me' id='"+ entry["eventID"] +"'></td></tr>");
         }
         else{
             if(counter % 2 == 0)
             $("#eventTable").append("<tr name='done' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary done' onclick='showDetail(false, this.id)' for='done' value='Show Result' id='"+ entry["eventID"] +"'></td>"+
-            "<td><input type='button' class='btn btn-primary' onclick='deleteMe(this.id)' value='Delete Me' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary done'  name='"+entry["name"] +"' onclick='showDetail(false, this.id, this.name)'  for='done' value='Show Result' id='"+ entry["eventID"] +"'></td>"+
+            "<td><input type='button' class='btn btn-primary' value='Delete Me' id='"+ entry["eventID"] +"'></td></tr>");
             else
             $("#eventTable").append("<tr class='grey' name='done' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary' onclick='showDetail(false, this.id)' for='done' value='Show Result' id='"+ entry["eventID"] +"'></td>" +
-            "<td><input type='button' class='btn btn-primary' onclick='deleteMe(this.id)' value='Delete Me' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary'name='"+entry["name"] +"' onclick='showDetail(false, this.id, this.name)' for='done' value='Show Result' id='"+ entry["eventID"] +"'></td>" +
+            "<td><input type='button' class='btn btn-primary' value='Delete Me' id='"+ entry["eventID"] +"'></td></tr>");
         }
         counter++;
     })
