@@ -1,73 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let list =  (<HTMLFormElement>document.getElementById("existingEvents"));
-    let form =  (<HTMLFormElement>document.getElementById("eventForm"));
+    //let list =  (<HTMLFormElement>document.getElementById("existingEvents"));
+    //let form =  (<HTMLFormElement>document.getElementById("eventForm"));
     let addAppt = (<HTMLButtonElement>document.getElementById("addEvent"));
     let submit = (<HTMLButtonElement>document.getElementById("submit"));
     let addSlot = (<HTMLButtonElement>document.getElementById("addTimeslot"));
-    let timeslots = document.getElementById("timeslots");
-    let optionInput = document.getElementById("optionInput");
-    addAppt.addEventListener("click", () => {
+    //let timeslots = document.getElementById("timeslots");
+
+    addAppt.addEventListener("click", () => { //Neues Event erstellen
         let work : any = $("#newEvent");
         work.modal("show");      
     })
-    
-    let count : number = 0;
-    addSlot.addEventListener("click", () => {
-        $("#optionInput").empty();
-        let today = new Date(Date.now());
-        let dateInputL =  document.createElement("label");
-        let timeStartL =  document.createElement("label");
-        let timeEndL =  document.createElement("label");
-        let dateInput = document.createElement("input");
-        let timeStart = document.createElement("input");
-        let timeEnd = document.createElement("input");
-        let optionbtn = document.createElement("button");
-        dateInput.setAttribute("type", "date");
-        dateInput.setAttribute("id", "date"+count);
-        dateInput.setAttribute("min", today.toString());
-        timeStart.setAttribute("type", "time");
-        timeStart.setAttribute("id", "date"+count);
-        timeEnd.setAttribute("type", "time");
-        timeEnd.setAttribute("id", "date"+count);
-        dateInputL.setAttribute("for", "date"+count);
-        timeStartL.setAttribute("for", "date"+count);
-        timeEndL.setAttribute("for", "date"+count);
-        optionbtn.setAttribute("type", "button");
-        optionbtn.setAttribute("class", "btn btn-secondary btn-sm");
-        dateInputL.innerText = "Date";
-        timeStartL.innerText = "From";
-        timeEndL.innerText = "To";
-        optionbtn.innerText = "Add";
-        optionInput?.appendChild(dateInputL);
-        optionInput?.appendChild(dateInput);
-        optionInput?.appendChild(timeStartL);
-        optionInput?.appendChild(timeStart);
-        optionInput?.appendChild(timeEndL);
-        optionInput?.appendChild(timeEnd);
-        optionInput?.appendChild(optionbtn);
 
-        optionbtn?.addEventListener("click", () => {
+    $("#optionInput").hide();
+    //let count : number = 0;
+
+    addSlot.addEventListener("click", () => { //Neue Terminoptionen erstellen
+        $("#optionInput").show();
+        let today = new Date(Date.now());
+        let dateInput : any = document.getElementById("newDate");
+        let timeStart : any = document.getElementById("timeStart");
+        let timeEnd : any = document.getElementById("timeEnd");
+        let optionbtn = (<HTMLButtonElement>document.getElementById("addOption"));
+        dateInput.setAttribute("min", today.toString());
+
+        optionbtn.addEventListener("click", () => {
             if(dateInput?.value != "" && timeStart?.value != "" && timeEnd?.value != ""){
                 let setDate = new Date(dateInput?.value);
                 let newOption : any = {"date": dateInput.value, "timeStart": timeStart.value, "timeEnd": timeEnd.value}
-                if(dateInPast(setDate, today)){
+                if(dateInPast(setDate, today)){ //Falls Termin in der Vergangenheit läge, return false
                     alert("Do you have a time machine?");
                     return false;
-                } else {
+                } else { //Check ob Termin schon vorhanden ist
                     for(let i = 0; i < options.length; i++){
-                        if(parseInt(options[i]) == parseInt(newOption)){
+                        if(parseInt(options[i]) == parseInt(newOption)){ //wenn vorhanden, return false
                             alert("This option already exists");
                             return false;
                         }
-                    }
+                    } //Termin noch nicht vorhanden
                     $("#slotList").append("<li class='list-group'>"+ dateInput.value + ": from " + timeStart.value + " to " + timeEnd.value + "</li>");
                     console.log(options.push(newOption));
                     console.log(options);
+                    dateInput.value = "";
+                    timeStart.value = "";
+                    timeEnd.value = "";
+                    return true;
                 }
             } else {
                 alert("Please fill out all fields");
             }
-            count++;
+            //count++;
         }) 
     })
 
@@ -159,8 +140,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let options : any = [];
 
-const dateInPast = (firstDate: Date, secondDate: Date) => {
-    if (firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0)) {
+const dateInPast = (date1: Date, date2: Date) => {
+    if (date1.setHours(0, 0, 0, 0) <= date2.setHours(0, 0, 0, 0)) {
       return true;
     }
     return false;

@@ -34,18 +34,25 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label><br>
-                                <textarea id="description"  name="description"></textarea>
+                                <textarea id="description" name="description"></textarea>
                             </div>
                             <div class="form-group" id="timeslots">
-                                <button type="button" id="addTimeslot" class="btn btn-secondary">Add Timeslot</button>
+                                <button type="button" id="addTimeslot" class="btn btn-secondary btn-sm">Add Timeslot</button><br>
                                 <ul id="slotList" class="list-group"></ul>
-                                <div id="optionInput"></div>
+                                <div id="optionInput">
+                                    <label for="optionDate">Date</label>
+                                    <input type="date" name="optionDate" id="newDate">
+                                    <label for="optionStart">From</label>
+                                    <input type="time" name="optionStart" id="timeStart">
+                                    <label for="optionEnd">To</label>
+                                    <input type="time" name="optionEnd" id="timeEnd">
+                                    <button type="button" class="btn btn-secondary btn-sm" id="addOption">Add</button>
+                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <input type="button" id ="submit" class="btn btn-primary" value="Submit">
-
                     </div>
                 </div>         
             </div> 

@@ -36,3 +36,35 @@ addAppt?.addEventListener("click", () => {
         addAppt.textContent = "Add New Appointment";
     }
 })*/
+
+
+        /*let dateInputL =  document.createElement("label");
+        let timeStartL =  document.createElement("label");
+        let timeEndL =  document.createElement("label");
+        let dateInput = document.createElement("input");
+        let timeStart = document.createElement("input");
+        let timeEnd = document.createElement("input");
+        let optionbtn = document.createElement("button");
+        dateInput.setAttribute("type", "date");
+        dateInput.setAttribute("id", "date"+count);
+        dateInput.setAttribute("min", today.toString());
+        timeStart.setAttribute("type", "time");
+        timeStart.setAttribute("id", "date"+count);
+        timeEnd.setAttribute("type", "time");
+        timeEnd.setAttribute("id", "date"+count);
+        dateInputL.setAttribute("for", "date"+count);
+        timeStartL.setAttribute("for", "date"+count);
+        timeEndL.setAttribute("for", "date"+count);
+        optionbtn.setAttribute("type", "button");
+        optionbtn.setAttribute("class", "btn btn-secondary btn-sm");
+        dateInputL.innerText = "Date";
+        timeStartL.innerText = "From";
+        timeEndL.innerText = "To";
+        optionbtn.innerText = "Add";
+        optionInput?.appendChild(dateInputL);
+        optionInput?.appendChild(dateInput);
+        optionInput?.appendChild(timeStartL);
+        optionInput?.appendChild(timeStart);
+        optionInput?.appendChild(timeEndL);
+        optionInput?.appendChild(timeEnd);
+        optionInput?.appendChild(optionbtn);*/
