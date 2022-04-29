@@ -13,18 +13,6 @@ if(isset($_POST["saveName"])){
 
 if(isset($_POST["saveOptionTimeStart"])){
     require_once("dbaccess.php");
-    //$eventName = $_POST["saveOptionName"];
-    //$sql = "select max(eventID) from event";
-    //$result = $mysqli->query($sql);
-
-    //$sql->bind_param('s', $eventName);
-    //$sql->execute();
-    //$sql->bind_result($id);  
-    //$id = (int)$id;
-    
-    //hile($idArray = $result->fetch_assoc()) {
-    //    $id = $idArray["eventID"];
-    //}
     $date = $_POST["saveOptionDate"];
     $timeStart = $_POST["saveOptionTimeStart"];
     $timeEnd = $_POST["saveOptionTimeEnd"];

@@ -13,7 +13,12 @@
         <title>Appointment Finder</title>
     </head>
     <body>
-        <div id="header"><h2>Appointment Finder</h2></div>
+        <div id="header"><h2>Appointment Finder</h2></div><br>
+
+        <div id="existingEvents">
+            <table id="eventTable">
+            </table>
+        </div><br>
 
         <button type="button" id="addEvent" class="btn btn-primary" data-toggle="modal" data-target="#newEvent">Add New Appointment</button>
         <div id="newEvent" class="modal" role="dialog">
@@ -57,10 +62,22 @@
                 </div>         
             </div> 
         </div>
-        <div id="existingEvents">
-            <table id="eventTable">
-            </table>
+
+        <div id="detailedView" class="modal" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="apptTitle"><!--event Title hier appenden--></h5>
+                    </div>
+                    <div class="modal-body">
+                        Event hier
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" id ="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </div>         
+            </div> 
         </div>
-        
+    
     </body>
 </html>
