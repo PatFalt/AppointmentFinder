@@ -121,10 +121,45 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshList();
 });
 
-function showDetail() { //Neues Event erstellen
+/*function showDetail(view : boolean) { //Neues Event erstellen
     let detailModal : any = $("#detailedView");
     detailModal.modal("show");      
-}
+    $.ajax({
+        type: "GET",
+        url: "backend/leadLogic.php",
+        cache: false,
+        async: false,
+        data:{
+            resultCheck : 1
+        },
+        success: (content)=>{
+            if(content){
+                let JSONcontent = JSON.parse(content);
+                console.log("Found Winning Result in DB");
+                if(view == false){
+                    showWinner(JSONcontent);
+                    console.log("view false");
+                }
+                else{
+                    showView(JSONcontent);
+                    console.log("view true");
+                }
+            }
+            else{
+                console.log("No Winning Result in DB");
+            }
+        },
+        error: ()=> {console.log("Load failed");}
+    })
+}*/
+
+function showWinner(content : any){
+
+};
+
+function showView(content : any){
+
+};
 
 let options : any = [];
 
@@ -136,30 +171,22 @@ const dateInPast = (date1: Date, date2: Date) => {
 };
 
 function refreshList(){
+    
     $.ajax({
         type: "GET",
-        url: "backend/loadHandler.php",
+        url: "backend/leadLogic.php",
         cache: false,
         async: false,
+        data: {
+            loadCheck: 1,
+            viewCheck: 0,
+            resultCheck: 0,
+        },
         success: (content)=>{
             if(content){
                 let JSONcontent = JSON.parse(content);
                 console.log("Found Events in DB");
                 generateList(JSONcontent);
-                let thisViewButton = document.getElementsByClassName("running");
-                let running = thisViewButton[0];
-                let thisResultButton = document.getElementsByClassName("done");
-                let done = thisResultButton[0];
-                running?.addEventListener("click", () =>{
-                    alert("View clicked ");
-                    let id : any = running.getAttribute("id");
-                    console.log(id);
-                })
-                done?.addEventListener("click", () =>{
-                    alert("Show Result clicked ");
-                    let id : any = done.getAttribute("id");
-                    console.log(id);
-                })
             }
             else{
                 console.log("No Events in DB");
