@@ -1,9 +1,9 @@
 <?php
-    include("dbaccess.php");
     /*$sql = "select eventID, name, description, open, closeDate, date, timeStart, timeEnd, voteCount
             from event left join options 
             on event.eventID = options.f_eventID
             where (select max(voteCount) from options)";*/
+    require_once("dbaccess.php");
     $sql = "select * from event order by closeDate asc";
     $result = mysqli_query($mysqli, $sql);
     $table = [];
@@ -14,4 +14,6 @@
         echo json_encode($table);
     }
     $mysqli->close();
+
+    if(isset($_POST["viewCheck"]))
 ?>

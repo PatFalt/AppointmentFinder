@@ -110,27 +110,41 @@ document.addEventListener("DOMContentLoaded", () => {
                         error: () => { console.error("Error option"); }
                     });
                 }
+                refreshList();
             });
         }
     });
-    setInterval(() => {
-        $.ajax({
-            type: "GET",
-            url: "backend/loadHandler.php",
-            cache: false,
-            success: (content) => {
-                if (content) {
-                    let JSONcontent = JSON.parse(content);
-                    console.log("Found Events in DB");
-                    generateList(JSONcontent);
-                }
-                else {
-                    console.log("No Events in DB");
-                }
-            },
-            error: () => { console.log("Load failed"); }
-        });
-    }, 5000);
+    $.ajax({
+        type: "GET",
+        url: "backend/loadHandler.php",
+        cache: false,
+        async: false,
+        success: (content) => {
+            if (content) {
+                let JSONcontent = JSON.parse(content);
+                console.log("Found Events in DB");
+                generateList(JSONcontent);
+                let thisViewButton = document.getElementsByClassName("running");
+                let running = thisViewButton[0];
+                let thisResultButton = document.getElementsByClassName("done");
+                let done = thisResultButton[0];
+                running.addEventListener("click", () => {
+                    alert("View clicked ");
+                    let id = running.getAttribute("id");
+                    console.log(id);
+                });
+                done === null || done === void 0 ? void 0 : done.addEventListener("click", () => {
+                    alert("Show Result clicked ");
+                    let id = done.getAttribute("id");
+                    console.log(id);
+                });
+            }
+            else {
+                console.log("No Events in DB");
+            }
+        },
+        error: () => { console.log("Load failed"); }
+    });
 });
 let options = [];
 const dateInPast = (date1, date2) => {
@@ -139,6 +153,41 @@ const dateInPast = (date1, date2) => {
     }
     return false;
 };
+function refreshList() {
+    $.ajax({
+        type: "GET",
+        url: "backend/loadHandler.php",
+        cache: false,
+        async: false,
+        success: (content) => {
+            if (content) {
+                let JSONcontent = JSON.parse(content);
+                console.log("Found Events in DB");
+                generateList(JSONcontent);
+                //let showRes = (document.getElementsByTagName("button"));
+                //let viewRun = (document.getElementsByClassName("running"));
+                let thisViewButton = document.getElementsByClassName("running");
+                let running = thisViewButton[0];
+                let thisResultButton = document.getElementsByClassName("done");
+                let done = thisResultButton[0];
+                running === null || running === void 0 ? void 0 : running.addEventListener("click", () => {
+                    alert("View clicked ");
+                    let id = running.getAttribute("id");
+                    console.log(id);
+                });
+                done === null || done === void 0 ? void 0 : done.addEventListener("click", () => {
+                    alert("Show Result clicked ");
+                    let id = done.getAttribute("id");
+                    console.log(id);
+                });
+            }
+            else {
+                console.log("No Events in DB");
+            }
+        },
+        error: () => { console.log("Load failed"); }
+    });
+}
 function generateList(content) {
     let table = document.getElementById("eventTable");
     while (table === null || table === void 0 ? void 0 : table.firstChild) {
@@ -147,8 +196,6 @@ function generateList(content) {
     $("#eventTable").remove();
     $("#existingEvents").append("<table id='eventTable'></table>");
     $("#eventTable").append("<tr><th>Event Name</th><th>Description</th><th>End Date</th></tr>");
-    let leadingTimeSlot = 0;
-    let leadingTimeSlotEntry;
     let now = new Date();
     now.setHours(0, 0, 0, 0);
     let counter = 0;
@@ -156,19 +203,19 @@ function generateList(content) {
         let date = entry["closeDate"];
         if (now.toISOString() <= date) {
             if (counter % 2 == 0)
-                $("#eventTable").append("<tr id='" + entry["eventID"] + "; running'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
-                    + "</td><td><input type='button' class='btn btn-primary' value='View' id='" + entry["eventID"] + "; running'></td></tr>");
+                $("#eventTable").append("<tr name='running' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
+                    + "</td><td><input type='button' class='btn btn-primary running' for='running' value='View' id='" + entry["eventID"] + "'></td></tr>");
             else
-                $("#eventTable").append("<tr class='grey' id='" + entry["eventID"] + "; running'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
-                    + "</td><td><input type='button' class='btn btn-primary' value='View' id='" + entry["eventID"] + "; running'></td></tr>");
+                $("#eventTable").append("<tr name='running' class='grey' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
+                    + "</td><td><input type='button' class='btn btn-primary running' for='running' value='View' id='" + entry["eventID"] + "'></td></tr>");
         }
         else {
             if (counter % 2 == 0)
-                $("#eventTable").append("<tr id='" + entry["eventID"] + "; done'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
-                    + "</td><td><input type='button' class='btn btn-primary' value='Show Result' id='" + entry["eventID"] + "; done'></tr>");
+                $("#eventTable").append("<tr name='done' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
+                    + "</td><td><input type='button' class='btn btn-primary done' for='done' value='Show Result' id='" + entry["eventID"] + "'></td></tr>");
             else
-                $("#eventTable").append("<tr class='grey' id='" + entry["eventID"] + "; done'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
-                    + "</td><td><input type='button' class='btn btn-primary' value='Show Result' id='" + entry["eventID"] + "; done'></tr>");
+                $("#eventTable").append("<tr class='grey' name='done' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
+                    + "</td><td><input type='button' class='btn btn-primary done' for='done' value='Show Result' id='" + entry["eventID"] + "'></td></tr>");
         }
         counter++;
     });
