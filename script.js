@@ -144,6 +144,8 @@ function showDetail(view, eventID, name) {
     }
 }
 function showWinner(eventID) {
+    $("#optionView").empty();
+    $("#resultView").empty();
     $.ajax({
         type: "POST",
         url: "backend/leadLogic.php",
@@ -156,8 +158,7 @@ function showWinner(eventID) {
         success: (content) => {
             if (content) {
                 let JSONcontent = JSON.parse(content);
-                $("#resultView").text(JSONcontent.date + " : " + JSONcontent.timeStart + " - " + JSONcontent.timeEnd);
-                console.log(JSONcontent.date);
+                $("#resultView").text(JSONcontent[0].date + " : " + JSONcontent[0].timeStart + " - " + JSONcontent[0].timeEnd);
             }
             else {
                 console.log("No Options in DB");
@@ -169,6 +170,7 @@ function showWinner(eventID) {
 ;
 function showView(eventID) {
     $("#optionView").empty();
+    $("#resultView").empty();
     $.ajax({
         type: "POST",
         url: "backend/leadLogic.php",
@@ -242,21 +244,21 @@ function generateList(content) {
             if (counter % 2 == 0)
                 $("#eventTable").append("<tr name='running' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
                     + "</td><td><input type='button' class='btn btn-primary running'  name='" + entry["name"] + "' onclick='showDetail(true, this.id, this.name)' for='running' value='View' id='" + entry["eventID"] + "'></td>" +
-                    "<td><input type='button' class='btn btn-primary'  value='Delete Me' id='" + entry["eventID"] + "'></td></tr>");
+                    "<td><input type='button' class='btn btn-primary'  value='Delete Me' onclick='deleteMe(this.id)' id='" + entry["eventID"] + "'></td></tr>");
             else
                 $("#eventTable").append("<tr name='running' class='grey' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
                     + "</td><td><input type='button' class='btn btn-primary running'  name='" + entry["name"] + "' onclick='showDetail(true, this.id, this.name)' for='running' value='View' id='" + entry["eventID"] + "'></td>" +
-                    "<td><input type='button' class='btn btn-primary' value='Delete Me' id='" + entry["eventID"] + "'></td></tr>");
+                    "<td><input type='button' class='btn btn-primary' value='Delete Me' onclick='deleteMe(this.id)' id='" + entry["eventID"] + "'></td></tr>");
         }
         else {
             if (counter % 2 == 0)
                 $("#eventTable").append("<tr name='done' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
                     + "</td><td><input type='button' class='btn btn-primary done'  name='" + entry["name"] + "' onclick='showDetail(false, this.id, this.name)'  for='done' value='Show Result' id='" + entry["eventID"] + "'></td>" +
-                    "<td><input type='button' class='btn btn-primary' value='Delete Me' id='" + entry["eventID"] + "'></td></tr>");
+                    "<td><input type='button' class='btn btn-primary' value='Delete Me' onclick='deleteMe(this.id)' id='" + entry["eventID"] + "'></td></tr>");
             else
                 $("#eventTable").append("<tr class='grey' name='done' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
                     + "</td><td><input type='button' class='btn btn-primary'name='" + entry["name"] + "' onclick='showDetail(false, this.id, this.name)' for='done' value='Show Result' id='" + entry["eventID"] + "'></td>" +
-                    "<td><input type='button' class='btn btn-primary' value='Delete Me' id='" + entry["eventID"] + "'></td></tr>");
+                    "<td><input type='button' class='btn btn-primary' value='Delete Me' onclick='deleteMe(this.id)' id='" + entry["eventID"] + "'></td></tr>");
         }
         counter++;
     });
