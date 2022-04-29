@@ -121,44 +121,70 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshList();
 });
 
-/*function showDetail(view : boolean) { //Neues Event erstellen
+function showDetail(view : boolean, eventID :any) { //Neues Event erstellen
     let detailModal : any = $("#detailedView");
     detailModal.modal("show");      
+
+    if(view == false){
+        showWinner(eventID);
+        console.log("view false");
+    }
+    else{
+        showView(eventID);
+        console.log("view true");
+    }
+    
+}
+
+function showWinner(eventID : any){
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "backend/leadLogic.php",
         cache: false,
         async: false,
-        data:{
-            resultCheck : 1
+        data: {
+            resultCheck: 1,
+            eventID: eventID,
         },
         success: (content)=>{
             if(content){
                 let JSONcontent = JSON.parse(content);
-                console.log("Found Winning Result in DB");
-                if(view == false){
-                    showWinner(JSONcontent);
-                    console.log("view false");
-                }
-                else{
-                    showView(JSONcontent);
-                    console.log("view true");
-                }
+                $.each(JSONcontent, (x, entry)=>{
+                    alert(entry["date"]);
+                })
             }
             else{
-                console.log("No Winning Result in DB");
+                console.log("No Options in DB");
             }
         },
         error: ()=> {console.log("Load failed");}
     })
-}*/
-
-function showWinner(content : any){
-
 };
 
-function showView(content : any){
-
+function showView(eventID : any){
+    $.ajax({
+        type: "POST",
+        url: "backend/leadLogic.php",
+        cache: false,
+        async: false,
+        data: {
+            viewCheck: 1,
+            eventID: eventID,
+        },
+        success: (content)=>{
+            if(content){
+                let JSONcontent = JSON.parse(content);
+                console.log("Found Options in DB");
+                $.each(JSONcontent, (x, entry)=>{
+                    alert(entry["date"]);
+                })
+            }
+            else{
+                console.log("No Options in DB");
+            }
+        },
+        error: ()=> {console.log("Load failed");}
+    })
 };
 
 let options : any = [];
@@ -173,14 +199,12 @@ const dateInPast = (date1: Date, date2: Date) => {
 function refreshList(){
     
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "backend/leadLogic.php",
         cache: false,
         async: false,
         data: {
             loadCheck: 1,
-            viewCheck: 0,
-            resultCheck: 0,
         },
         success: (content)=>{
             if(content){
@@ -213,18 +237,18 @@ function generateList(content : any){
         if(now.toISOString() <= date){
             if(counter % 2 == 0)
             $("#eventTable").append("<tr name='running' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail()' for='running' value='View' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail(true, this.id)' for='running' value='View' id='"+ entry["eventID"] +"'></td></tr>");
             else
             $("#eventTable").append("<tr name='running' class='grey' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail()' for='running' value='View' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail(true, this.id)' for='running' value='View' id='"+ entry["eventID"] +"'></td></tr>");
         }
         else{
             if(counter % 2 == 0)
             $("#eventTable").append("<tr name='done' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary done' onclick='showDetail()' for='done' value='Show Result' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary done' onclick='showDetail(false, this.id)' for='done' value='Show Result' id='"+ entry["eventID"] +"'></td></tr>");
             else
             $("#eventTable").append("<tr class='grey' name='done' id='"+ entry["eventID"] +"'><td>"+entry["name"] +"</td><td>" + entry["description"] + "</td><td>" + date 
-            + "</td><td><input type='button' class='btn btn-primary done' onclick='showDetail()' for='done' value='Show Result' id='"+ entry["eventID"] +"'></td></tr>");
+            + "</td><td><input type='button' class='btn btn-primary done' onclick='showDetail(false, this.id)' for='done' value='Show Result' id='"+ entry["eventID"] +"'></td></tr>");
         }
         counter++;
     })
