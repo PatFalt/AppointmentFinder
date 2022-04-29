@@ -121,6 +121,21 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshList();
 });
 
+function deleteMe(eventID :any){
+    $.ajax({
+        type: "POST",
+        url: "backend/leadLogic.php",
+        async: false,
+        data: {
+            deleteMe: 1,
+            eventID: eventID,
+        },
+        success: ()=>{console.log("Delete params passed");},
+        error: ()=> {console.log("Delete params failed");}
+    })
+    refreshList();
+}
+
 function showDetail(view : boolean, eventID :any) { //Neues Event erstellen
     let detailModal : any = $("#detailedView");
     detailModal.modal("show");      
@@ -214,6 +229,8 @@ function refreshList(){
             }
             else{
                 console.log("No Events in DB");
+                $("#eventTable").remove();
+                $("#existingEvents").append("<table id='eventTable'></table>");
             }
         },
         error: ()=> {console.log("Load failed");}

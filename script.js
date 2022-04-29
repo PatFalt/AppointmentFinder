@@ -116,6 +116,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     refreshList();
 });
+function deleteMe(eventID) {
+    $.ajax({
+        type: "POST",
+        url: "backend/leadLogic.php",
+        async: false,
+        data: {
+            deleteMe: 1,
+            eventID: eventID,
+        },
+        success: () => { console.log("Delete params passed"); },
+        error: () => { console.log("Delete params failed"); }
+    });
+    refreshList();
+}
 function showDetail(view, eventID) {
     let detailModal = $("#detailedView");
     detailModal.modal("show");
@@ -203,6 +217,8 @@ function refreshList() {
             }
             else {
                 console.log("No Events in DB");
+                $("#eventTable").remove();
+                $("#existingEvents").append("<table id='eventTable'></table>");
             }
         },
         error: () => { console.log("Load failed"); }
