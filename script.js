@@ -224,18 +224,22 @@ function generateList(content) {
         if (now.toISOString() <= date) {
             if (counter % 2 == 0)
                 $("#eventTable").append("<tr name='running' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
-                    + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail(true, this.id)' for='running' value='View' id='" + entry["eventID"] + "'></td></tr>");
+                    + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail(true, this.id)' for='running' value='View' id='" + entry["eventID"] + "'></td>" +
+                    "<td><input type='button' class='btn btn-primary' onclick='deleteMe(this.id)' value='Delete Me' id='" + entry["eventID"] + "'></td></tr>");
             else
                 $("#eventTable").append("<tr name='running' class='grey' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
-                    + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail(true, this.id)' for='running' value='View' id='" + entry["eventID"] + "'></td></tr>");
+                    + "</td><td><input type='button' class='btn btn-primary running' onclick='showDetail(true, this.id)' for='running' value='View' id='" + entry["eventID"] + "'></td>" +
+                    "<td><input type='button' class='btn btn-primary' onclick='deleteMe(this.id)' value='Delete Me' id='" + entry["eventID"] + "'></td></tr>");
         }
         else {
             if (counter % 2 == 0)
                 $("#eventTable").append("<tr name='done' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
-                    + "</td><td><input type='button' class='btn btn-primary done' onclick='showDetail(false, this.id)' for='done' value='Show Result' id='" + entry["eventID"] + "'></td></tr>");
+                    + "</td><td><input type='button' class='btn btn-primary done' onclick='showDetail(false, this.id)' for='done' value='Show Result' id='" + entry["eventID"] + "'></td>" +
+                    "<td><input type='button' class='btn btn-primary' onclick='deleteMe(this.id)' value='Delete Me' id='" + entry["eventID"] + "'></td></tr>");
             else
                 $("#eventTable").append("<tr class='grey' name='done' id='" + entry["eventID"] + "'><td>" + entry["name"] + "</td><td>" + entry["description"] + "</td><td>" + date
-                    + "</td><td><input type='button' class='btn btn-primary done' onclick='showDetail(false, this.id)' for='done' value='Show Result' id='" + entry["eventID"] + "'></td></tr>");
+                    + "</td><td><input type='button' class='btn btn-primary' onclick='showDetail(false, this.id)' for='done' value='Show Result' id='" + entry["eventID"] + "'></td>" +
+                    "<td><input type='button' class='btn btn-primary' onclick='deleteMe(this.id)' value='Delete Me' id='" + entry["eventID"] + "'></td></tr>");
         }
         counter++;
     });

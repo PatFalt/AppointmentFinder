@@ -5,5 +5,6 @@ include("option.php");
 include("user.php");
 include("creationHandler.php");
 include("loadHandler.php");
+include("deleteHandler.php");
 include("inputTest.php");
 ?>
