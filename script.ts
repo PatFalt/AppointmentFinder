@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         let description = $("#description").val();
         if(eventName == "" || endDate == "" || description == ""){
-            alert("1111Please fill out all fields");
+            alert("Please fill out all fields");
             console.error("incomplete form");
         } else {
             let ajaxPromise = new Promise((resolve, reject) => {
@@ -115,11 +115,11 @@ document.addEventListener("DOMContentLoaded", () => {
                                 console.log("option logged");
                                 $("#slotList").empty();
                                 $("#optionInput").hide();
-                                options = [];
                             },
                             error: () => {console.error("Error option");}
                         })
                 }
+                options = [];
                 refreshList();
             })
         }
@@ -173,7 +173,7 @@ function showWinner(eventID : any){
         success: (content) => {
             if(content){
                 let JSONcontent = JSON.parse(content);
-                $("#resultView").text(JSONcontent[0].date + " : " + JSONcontent[0].timeStart + " - " + JSONcontent[0].timeEnd);
+                $("#resultView").text("Winning timeslot -> "+JSONcontent[0].date + " : " + JSONcontent[0].timeStart + " - " + JSONcontent[0].timeEnd);
             }
             else {
                 console.log("No Options in DB");
