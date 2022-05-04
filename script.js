@@ -191,9 +191,9 @@ function showView(eventID) {
                 console.log("Found Options in DB");
                 $.each(JSONcontent, (x, entry) => {
                     $("#optionView").append("<li id=" + entry["optionID"] + " class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] +
-                        "<input class='form-check-input' type='checkbox' value='0' onclick='updateValue(this.id)' id=" + entry["optionID"] + "></li>");
+                        "<input class='form-check-input' type='checkbox' name='checkbox' value=0 onclick='updateValue(this.id)' id=" + entry["optionID"] + "></li>");
                 });
-                $("#optionView").append("<button type='submit' id='submitVote' onclick='vote()' class='btn btn-secondary btn-sm'>vote</button>");
+                $("#optionView").append("<button type='button' id='submitVote' onclick='vote()' class='btn btn-secondary btn-sm'>vote</button>");
             }
             else {
                 console.log("No Options in DB");
@@ -225,6 +225,36 @@ function updateValue(id) {
     }
 }
 function vote() {
+    alert("clicked");
+    let checkboxes;
+    let input;
+    input = document.getElementsByName("checkbox");
+    for (let i = 0; i < input.length; i++) {
+        let valueInt = parseInt(input[i].value);
+        alert(valueInt);
+        if (valueInt == 1) {
+            $.ajax({
+                type: "POST",
+                url: "backend/leadLogic.php",
+                cache: false,
+                async: false,
+                data: {
+                    voteEvent: 1,
+                    optionID: valueInt,
+                },
+                success: (content) => {
+                    alert(valueInt);
+                    if (content) {
+                        console.log("Option updated in DB");
+                    }
+                    else {
+                        console.log("Option not found in DB");
+                    }
+                },
+                error: () => { console.log("Load failed"); }
+            });
+        }
+    }
 }
 function refreshList() {
     $.ajax({
