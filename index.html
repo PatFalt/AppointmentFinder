@@ -31,26 +31,26 @@
                         <form id="eventForm">
                             <div class="form-group">
                                 <label for="eventName">Event Name:</label>
-                                <input type="text" id="eventName" class="form-control" name="eventName">
+                                <input type="text" id="eventName" class="form-control" name="eventName" required>
                             </div>
                             <div class="form-group">
                                 <label for="endDate">To:</label>
-                                <input type="date" id="endDate" class="form-control" name="endDate">
+                                <input type="date" id="endDate" class="form-control" name="endDate" required>
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label><br>
-                                <textarea id="description" name="description"></textarea>
+                                <textarea id="description" name="description" required></textarea>
                             </div>
                             <div class="form-group" id="timeslots">
                                 <button type="button" id="addTimeslot" class="btn btn-secondary btn-sm">Add Timeslot</button><br>
                                 <ul id="slotList" class="list-group"></ul>
                                 <div id="optionInput">
                                     <label for="optionDate">Date</label>
-                                    <input type="date" name="optionDate" id="newDate">
+                                    <input type="date" name="optionDate" id="newDate" required>
                                     <label for="optionStart">From</label>
-                                    <input type="time" name="optionStart" id="timeStart">
+                                    <input type="time" name="optionStart" id="timeStart" required>
                                     <label for="optionEnd">To</label>
-                                    <input type="time" name="optionEnd" id="timeEnd">
+                                    <input type="time" name="optionEnd" id="timeEnd" required>
                                     <button type="button" class="btn btn-secondary btn-sm" id="addOption">Add</button>
                                 </div>
                             </div>

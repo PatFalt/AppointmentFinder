@@ -44,9 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     return true;
                 }
             }
-            else {
-                alert("Please fill out all fields");
-            }
         });
     });
     submit.addEventListener("click", () => {
@@ -109,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             console.log("option logged");
                             $("#slotList").empty();
                             $("#optionInput").hide();
+                            options = [];
                         },
                         error: () => { console.error("Error option"); }
                     });
@@ -195,7 +193,7 @@ function showView(eventID) {
                     $("#optionView").append("<li id=" + entry["optionID"] + " class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] +
                         "<input class='form-check-input' type='checkbox' name='checkbox' value='0' onclick='updateValue(this)' id=" + entry["optionID"] + "></li>");
                 });
-                $("#voteButton").append("<button type='button' id='submitVote' onclick='vote()' class='btn btn-secondary btn-sm'>vote</button>");
+                $("#voteButton").append("<button type='button' id='submitVote' onclick='vote()' class='btn btn-secondary btn-sm'>Vote</button>");
             }
             else {
                 console.log("No Options in DB");
