@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         let description = $("#description").val();
         if(eventName == "" || endDate == "" || description == ""){
-            alert("Please fill out all fields");
+            alert("1111Please fill out all fields");
             console.error("incomplete form");
         } else {
             let ajaxPromise = new Promise((resolve, reject) => {
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshList();
 });
 
-function deleteMe(eventID :any){
+function deleteMe(eventID :any){//Deletion event
     $.ajax({
         type: "POST",
         url: "backend/leadLogic.php",
@@ -155,6 +155,7 @@ function showDetail(view : boolean, eventID : any, name : string) { //Neues Even
 
 function showWinner(eventID : any){
     $("#optionView").empty();
+    $("#voteButton").empty();
     $("#resultView").empty();
     $.ajax({
         type: "POST",
@@ -223,18 +224,14 @@ const dateInPast = (date1: Date, date2: Date) => {
 function updateValue(el : any){
     let value : any = parseInt(el.value);
     console.log("Is " + value);
-    //value == 0 ? $("#" + id).val(1) : $("#" + id).val(0);
     if(value == 0){
         el.value = '1';
-        
-        //$("#" + id).val(1);
         value = parseInt(el.value);
-        return console.log("After "+value+" should be 1");
+        return console.log("Is "+value+" should be 1");
     } else {
         el.value = '0';
-        //$("#" + id).val(0);
         value = parseInt(el.value);
-        return console.log("After "+value+" should be 0");
+        return console.log("Is "+value+" should be 0");
     }
 }
 
@@ -243,8 +240,9 @@ function vote(){
     for(let i = 0; i < checkboxes.length; i++) {
         let valueInt = parseInt((<HTMLInputElement>checkboxes[i]).value);
         let optionID = checkboxes[i].id;
-        console.log("Passing optionID "+optionID+" to PHP!");
+        //checking if checkbox has been checked for a vote
         if(valueInt == 1){
+            console.log("Passing optionID "+optionID+" to PHP!");
             $.ajax({
                 type: "POST",
                 url: "backend/leadLogic.php",
@@ -305,6 +303,7 @@ function generateList(content : any){
     let now = new Date();
     now.setHours(0,0,0,0);
     let counter = 0;
+    //table creation for every entry
     $.each(content, (x, entry)=>{
         let date = entry["closeDate"];
         if(now.toISOString() <= date){
