@@ -191,7 +191,7 @@ function showView(eventID) {
                 console.log("Found Options in DB");
                 $.each(JSONcontent, (x, entry) => {
                     $("#optionView").append("<li id=" + entry["optionID"] + " class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] +
-                        "<input class='form-check-input' type='checkbox' name='checkbox' value=0 onclick='updateValue(this.id)' id=" + entry["optionID"] + "></li>");
+                        "<input class='form-check-input' type='checkbox' name='checkbox' value='0' onclick='updateValue(this.id)' id=" + entry["optionID"] + "></li>");
                 });
                 $("#optionView").append("<button type='button' id='submitVote' onclick='vote()' class='btn btn-secondary btn-sm'>vote</button>");
             }
@@ -211,28 +211,29 @@ const dateInPast = (date1, date2) => {
     return false;
 };
 function updateValue(id) {
-    let value = $("#" + id).val();
-    value = parseInt(value);
-    console.log(value);
+    let value = parseInt(document.getElementById(id).value);
+    console.log("Is " + value);
     //value == 0 ? $("#" + id).val(1) : $("#" + id).val(0);
     if (value == 0) {
-        $("#" + id).val(1);
-        return console.log(value);
+        document.getElementById(id).value = '1';
+        //$("#" + id).val(1);
+        value = parseInt(document.getElementById(id).value);
+        return console.log("After " + value + " should be 1");
     }
     else {
-        $("#" + id).val(0);
-        return console.log(value);
+        document.getElementById(id).value = '0';
+        //$("#" + id).val(0);
+        value = parseInt(document.getElementById(id).value);
+        return console.log("After " + value + " should be 0");
     }
 }
 function vote() {
     alert("clicked");
-    let checkboxes;
-    let input;
-    input = document.getElementsByName("checkbox");
-    for (let i = 0; i < input.length; i++) {
-        let valueInt = parseInt(input[i].value);
+    let checkboxes = document.getElementsByName("checkbox");
+    for (let i = 0; i < checkboxes.length; i++) {
+        let valueInt = parseInt(checkboxes[i].value);
         alert(valueInt);
-        if (valueInt == 1) {
+        if (valueInt == 20) {
             $.ajax({
                 type: "POST",
                 url: "backend/leadLogic.php",
