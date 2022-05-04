@@ -53,6 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     submit.addEventListener("click", () => {
+        if(options.length < 1){
+            alert("No options entered");
+            return false;
+        }
         let eventName = $("#eventName").val();
         let endDate : any = $("#endDate").val();
         let setDate = new Date(endDate);
