@@ -190,7 +190,8 @@ function showView(eventID) {
                 let JSONcontent = JSON.parse(content);
                 console.log("Found Options in DB");
                 $.each(JSONcontent, (x, entry) => {
-                    $("#optionView").append("<li class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] + "<button type='button' id='voteButton' class='btn btn-secondary btn-sm'></button></li>");
+                    $("#optionView").append("<li id=" + entry["optionID"] + " class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] + "<button type='button' id=" + entry["optionID"] + "  class='btn btn-secondary btn-sm'></button></li>");
+                    alert(entry["optionID"]);
                 });
             }
             else {

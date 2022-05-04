@@ -16,7 +16,7 @@
     if(isset($_POST["viewCheck"] )&& $_POST["viewCheck"] == 1){
         require_once("dbaccess.php");
         $eventID = $_POST["eventID"];
-        $sql = "select date, timeStart, timeEnd 
+        $sql = "select date, timeStart, timeEnd, optionID
         from options 
         join event on event.eventID = options.f_eventID 
         where f_eventID = $eventID";
