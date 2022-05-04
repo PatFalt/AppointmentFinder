@@ -181,6 +181,7 @@ function showWinner(eventID : any){
 
 function showView(eventID : any){
     $("#optionView").empty();
+    $("#voteButton").empty();
     $("#resultView").empty();
     $.ajax({
         type: "POST",
@@ -198,9 +199,9 @@ function showView(eventID : any){
                 console.log("Found Options in DB");
                 $.each(JSONcontent, (x, entry) => {
                     $("#optionView").append("<li id=" + entry["optionID"] + " class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] + 
-                    "<input class='form-check-input' type='checkbox' name='checkbox' value='0' onclick='updateValue(this.id)' id=" + entry["optionID"] + "></li>");
+                    "<input class='form-check-input' type='checkbox' name='checkbox' value='0' onclick='updateValue(this)' id=" + entry["optionID"] + "></li>");
                 })
-                $("#optionView").append("<button type='button' id='submitVote' onclick='vote()' class='btn btn-secondary btn-sm'>vote</button>");
+                $("#voteButton").append("<button type='button' id='submitVote' onclick='vote()' class='btn btn-secondary btn-sm'>vote</button>");
             }
             else{
                 console.log("No Options in DB");
@@ -219,31 +220,31 @@ const dateInPast = (date1: Date, date2: Date) => {
     return false;
 };
 
-function updateValue(id : any){
-    let value : any = parseInt((<HTMLInputElement>document.getElementById(id)).value);
-
+function updateValue(el : any){
+    let value : any = parseInt(el.value);
     console.log("Is " + value);
     //value == 0 ? $("#" + id).val(1) : $("#" + id).val(0);
     if(value == 0){
-        (<HTMLInputElement>document.getElementById(id)).value = '1';
+        el.value = '1';
+        
         //$("#" + id).val(1);
-        value = parseInt((<HTMLInputElement>document.getElementById(id)).value);
+        value = parseInt(el.value);
         return console.log("After "+value+" should be 1");
     } else {
-        (<HTMLInputElement>document.getElementById(id)).value = '0';
+        el.value = '0';
         //$("#" + id).val(0);
-        value = parseInt((<HTMLInputElement>document.getElementById(id)).value);
+        value = parseInt(el.value);
         return console.log("After "+value+" should be 0");
     }
 }
 
 function vote(){
-    alert("clicked");
     let checkboxes = document.getElementsByName("checkbox");
     for(let i = 0; i < checkboxes.length; i++) {
         let valueInt = parseInt((<HTMLInputElement>checkboxes[i]).value);
-        alert(valueInt);
-        if(valueInt == 20){
+        let optionID = checkboxes[i].id;
+        console.log("Passing optionID "+optionID+" to PHP!");
+        if(valueInt == 1){
             $.ajax({
                 type: "POST",
                 url: "backend/leadLogic.php",
@@ -251,10 +252,9 @@ function vote(){
                 async: false,
                 data: {
                     voteEvent: 1,
-                    optionID: valueInt,
+                    optionID: optionID,
                 },
                 success: (content)=>{
-                    alert(valueInt)
                     if(content){
                         console.log("Option updated in DB");
                     }
