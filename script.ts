@@ -197,9 +197,10 @@ function showView(eventID : any){
                 let JSONcontent = JSON.parse(content);
                 console.log("Found Options in DB");
                 $.each(JSONcontent, (x, entry) => {
-                    $("#optionView").append("<li id=" + entry["optionID"] + " class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] + "<button type='button' id=" + entry["optionID"] + "  class='btn btn-secondary btn-sm'></button></li>");
-                    alert(entry["optionID"]);
+                    $("#optionView").append("<li id=" + entry["optionID"] + " class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] + 
+                    "<input class='form-check-input' type='checkbox' value='0' onclick='updateValue(this.id)' id=" + entry["optionID"] + "></li>");
                 })
+                $("#optionView").append("<button type='submit' id='submitVote' onclick='vote()' class='btn btn-secondary btn-sm'>vote</button>");
             }
             else{
                 console.log("No Options in DB");
@@ -218,8 +219,25 @@ const dateInPast = (date1: Date, date2: Date) => {
     return false;
 };
 
+function updateValue(id : any){
+    let value : any = $("#" + id).val();
+    value = parseInt(value);
+    console.log(value);
+    //value == 0 ? $("#" + id).val(1) : $("#" + id).val(0);
+    if(value == 0){
+        $("#" + id).val(1);
+        return console.log(value);
+    } else {
+        $("#" + id).val(0);
+        return console.log(value);
+    }
+}
+
+function vote(){
+
+}
+
 function refreshList(){
-    
     $.ajax({
         type: "POST",
         url: "backend/leadLogic.php",
