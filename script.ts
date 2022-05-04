@@ -109,7 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             },
                             cache: false,
                             async: false,
-                            success: () => {console.log("option logged");},
+                            success: () => {
+                                console.log("option logged");
+                                $("#slotList").empty();
+                                $("#optionInput").hide();
+                            },
                             error: () => {console.error("Error option");}
                         })
                 }
@@ -193,7 +197,7 @@ function showView(eventID : any){
                 let JSONcontent = JSON.parse(content);
                 console.log("Found Options in DB");
                 $.each(JSONcontent, (x, entry) => {
-                    $("#optionView").append("<li class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] + "</li>");
+                    $("#optionView").append("<li class='list-group'>" + entry["date"] + " : " + entry["timeStart"] + " - " + entry["timeEnd"] + "<button type='button' id='voteButton' class='btn btn-secondary btn-sm'></button></li>");
                 })
             }
             else{
