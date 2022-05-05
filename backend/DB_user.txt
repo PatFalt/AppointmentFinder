@@ -1,0 +1,5 @@
+# Rechte für `bif2webscriptinguser`@`localhost`
+
+GRANT USAGE ON *.* TO `bif2webscriptinguser`@`localhost` IDENTIFIED BY PASSWORD '*4680BADAC6AB3959526F032A7B3A60C1EC163F9F';
+
+GRANT ALL PRIVILEGES ON `appointmentfinder_db`.* TO `bif2webscriptinguser`@`localhost`;
